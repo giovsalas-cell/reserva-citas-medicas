@@ -1,16 +1,34 @@
 package com.consultas.medicas.modelos;
 
 public class CitaMedica {
+    private int idCitaMedica;
     private String fecha;
     private boolean disponibilidad;
     private Medico medico;
     private Paciente paciente;
 
-    public CitaMedica(String fecha, boolean disponibilidad, Medico medico, Paciente paciente) {
+    public CitaMedica(int idCitaMedica, String fecha, boolean disponibilidad, Medico medico) {
+        this.idCitaMedica = idCitaMedica;
+        this.fecha = fecha;
+        this.disponibilidad = disponibilidad;
+        this.medico = medico;
+        this.paciente = null;
+    }
+
+    public CitaMedica(int idCitaMedica, String fecha, boolean disponibilidad, Medico medico, Paciente paciente) {
+        this.idCitaMedica = idCitaMedica;
         this.fecha = fecha;
         this.disponibilidad = disponibilidad;
         this.medico = medico;
         this.paciente = paciente;
+    }
+
+    public int getIdCitaMedica() {
+        return idCitaMedica;
+    }
+
+    public void setIdCitaMedica(int idCitaMedica) {
+        this.idCitaMedica = idCitaMedica;
     }
 
     public String getFecha() {
