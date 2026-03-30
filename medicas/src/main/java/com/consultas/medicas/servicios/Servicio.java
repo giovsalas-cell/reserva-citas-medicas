@@ -98,18 +98,18 @@ public class Servicio {
 
     // cancelar Lista medica
 
-    public List<CitaMedica> cancelarCitaMedica(int idCitaMedica) {
+    public CitaMedica cancelarCitaMedica(int idCitaMedica) {
         for (CitaMedica citaMedica : listaCitaMedicas) {
 
             if (citaMedica.getIdCitaMedica() == idCitaMedica) {
 
                 citaMedica.setDisponibilidad(true);
                 citaMedica.setPaciente(null);
-
+                return citaMedica;
             }
 
         }
-        return listaCitaMedicas;
+        return null;
     }
 
     // buscar Paciente Por Id
@@ -124,15 +124,16 @@ public class Servicio {
     }
     // agendar cita medica
 
-    public List<CitaMedica> agendarCitaMedica(int id, Paciente paciente) {
+    public CitaMedica agendarCitaMedica(int id, Paciente paciente) {
 
         for (CitaMedica citaMedica : listaCitaMedicas) {
             if (citaMedica.getIdCitaMedica() == id && citaMedica.isDisponibilidad() == true && paciente != null) {
                 citaMedica.setDisponibilidad(false);
                 citaMedica.setPaciente(paciente);
+                return citaMedica;
             }
         }
-        return listaCitaMedicas;
+        return null;
     }
 
 }

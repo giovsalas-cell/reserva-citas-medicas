@@ -31,13 +31,13 @@ public class controller {
     }
 
     @GetMapping("/citas-medicas/cancelar/{idCitaMedica}")
-    public List<CitaMedica> cancelarCitaMedica(@PathVariable int idCitaMedica) {
+    public CitaMedica cancelarCitaMedica(@PathVariable int idCitaMedica) {
         return servicio.cancelarCitaMedica(idCitaMedica);
 
     }
 
     @GetMapping("/citas-medicas/agendar/id-cita-medica/{idCitaMedica}/id-paciente/{idPaciente}")
-    public List<CitaMedica> agendarCitaMedica(@PathVariable int idCitaMedica,
+    public CitaMedica agendarCitaMedica(@PathVariable int idCitaMedica,
             @PathVariable int idPaciente) {
         Paciente paciente = servicio.buscarPacientePorId(idPaciente);
 
