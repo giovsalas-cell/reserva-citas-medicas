@@ -1,18 +1,55 @@
 package com.consultas.medicas.modelos;
 
-public class Paciente {
-    private int idPaciente;
-    private String rutPaciente;
-    private String NombrePaciente;
-    private int telefonoPaciente;
-    private String Direccion;
+import java.util.List;
 
-    public Paciente(int idPaciente, String rutPaciente, String nombrePaciente, int telefonoPaciente, String direccion) {
+import org.springframework.context.annotation.EnableLoadTimeWeaving;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+@Entity
+@Table(name = "paciente")
+public class Paciente {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int idPaciente;
+    @NotBlank(message = "rut de paciente obligatorio")
+    @Size(min = 1, max = 10, message = "rut incorrecto")
+    @Column(name = "rut_paciente")
+    private String rutPaciente;
+    @NotBlank(message = "nombre de paciente obligatorio")
+    @Size(min = 1, max = 50, message = "nombre almenos debe tener mas de 1 caracter")
+    @Column(name = "nombre_paciente")
+    private String nombrePaciente;
+
+    @NotNull(message = "telefono de paciente obligatorio")
+    @Column(name = "telefono_paciente")
+    private Integer telefonoPaciente;
+
+    @NotBlank(message = "direccion de paciente obligatorio")
+    @Size(min = 1, max = 200, message = "direccion almenos debe tener mas de 1 caracter")
+    @Column(name = "direccion")
+    private String direccion;
+
+    @OneToMany(mappedBy = "paciente")
+    @JsonIgnore
+    private List<CitaMedica> citas;
+
+    public Paciente() {
+    }
+
+    public Paciente(int idPaciente, String rutPaciente, String nombrePaciente,
+            Integer telefonoPaciente, String direccion, List<CitaMedica> citas) {
         this.idPaciente = idPaciente;
         this.rutPaciente = rutPaciente;
-        NombrePaciente = nombrePaciente;
+        this.nombrePaciente = nombrePaciente;
         this.telefonoPaciente = telefonoPaciente;
-        Direccion = direccion;
+        this.direccion = direccion;
+        this.citas = citas;
     }
 
     public int getIdPaciente() {
@@ -32,27 +69,35 @@ public class Paciente {
     }
 
     public String getNombrePaciente() {
-        return NombrePaciente;
+        return nombrePaciente;
     }
 
     public void setNombrePaciente(String nombrePaciente) {
-        NombrePaciente = nombrePaciente;
+        this.nombrePaciente = nombrePaciente;
     }
 
-    public int getTelefonoPaciente() {
+    public Integer getTelefonoPaciente() {
         return telefonoPaciente;
     }
 
-    public void setTelefonoPaciente(int telefonoPaciente) {
+    public void setTelefonoPaciente(Integer telefonoPaciente) {
         this.telefonoPaciente = telefonoPaciente;
     }
 
     public String getDireccion() {
-        return Direccion;
+        return direccion;
     }
 
     public void setDireccion(String direccion) {
-        Direccion = direccion;
+        this.direccion = direccion;
+    }
+
+    public List<CitaMedica> getCitas() {
+        return citas;
+    }
+
+    public void setCitas(List<CitaMedica> citas) {
+        this.citas = citas;
     }
 
 }
