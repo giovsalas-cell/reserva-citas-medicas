@@ -1,0 +1,13 @@
+version: "1"
+services:
+  microservicio-medicas:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8080"
+    environment:
+      - spring.datasource.url=jdbc:oracle:thin:@fullstack1bd_high?TNS_ADMIN=/app/wallet/
+      - spring.datasource.username=pelicula
+      - spring.datasource.password=FullStack_2026_Java
+    restart: always
